@@ -27,7 +27,7 @@ def read_data(file_name, field):
 def linear_search(sequence, number):
     """
     linear search algorithm implementation
-    :param sequence: (list or str), searched sequence
+    :param sequence: (list), searched sequence
     :param number: (int), number to be found
     :return: (dict)
     """
@@ -49,7 +49,7 @@ def linear_search(sequence, number):
 def pattern_search(sequence, pattern):
     """
     sequential searching algorithm implementation
-    :param sequence: (list or str), searched sequence
+    :param sequence: (str), searched sequence
     :param pattern: (str), pattern to be found
     :return: (set), positions, where pattern was found within sequence
     """
@@ -67,8 +67,31 @@ def pattern_search(sequence, pattern):
                 appearance.add(pattern_idx_left + pattern_length // 2)
             pattern_idx_left += 1
             pattern_idx_right += 1
-    print(appearance)
+
     return appearance
+
+
+def binary_search(sequence, num):
+    """
+    binary search algorithm implementation
+    :param sequence: (list), searched sequence
+    :param num: (int), number to be found
+    :return: (int), index where the number was found
+    """
+
+    left_idx = 0
+    right_idx = len(sequence) - 1
+
+    while left_idx <= right_idx:
+        middle_idx = (left_idx + right_idx) // 2
+        if sequence[middle_idx] == num:
+            return middle_idx
+        if sequence[middle_idx] > num:
+            right_idx = middle_idx - 1
+        elif sequence[middle_idx] < num:
+            left_idx = middle_idx + 1
+
+    return None
 
 
 def main():
@@ -83,6 +106,11 @@ def main():
     sequential_data2 = read_data("sequential.json", "dna_sequence")
     pattern_result = pattern_search(sequential_data2, pattern)
     print(pattern_result)
+
+    num = 13
+    sequential_data3 = read_data("sequential.json", "ordered_numbers")
+    binary_result = binary_search(sequential_data3, num)
+    print(binary_result)
 
 
 if __name__ == '__main__':
