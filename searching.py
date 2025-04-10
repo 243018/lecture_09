@@ -56,17 +56,20 @@ def pattern_search(sequence, pattern):
 
     pattern_length = len(pattern)
     appearance = set()
-    pattern_idx_right = pattern_length
-    pattern_idx_left = 0
 
-    while pattern_idx_right < len(sequence):
+    pattern_idx_left = 0
+    pattern_idx_right = pattern_length
+
+
+    while pattern_idx_right <= len(sequence):
         for idx_help in range(pattern_length):
-            if pattern[idx_help] != sequence[pattern_idx_left + idx_help]:
+            if sequence[pattern_idx_left + idx_help] != pattern[idx_help]:
                 break
-            else:
-                appearance.add(pattern_idx_left + pattern_length // 2)
-            pattern_idx_left += 1
-            pattern_idx_right += 1
+        else:
+            appearance.add(pattern_idx_left + pattern_length // 2)
+
+        pattern_idx_left += 1
+        pattern_idx_right = pattern_idx_left + pattern_length
 
     return appearance
 
@@ -104,6 +107,7 @@ def main():
 
     pattern = "ATA"
     sequential_data2 = read_data("sequential.json", "dna_sequence")
+    print(sequential_data2)
     pattern_result = pattern_search(sequential_data2, pattern)
     print(pattern_result)
 
